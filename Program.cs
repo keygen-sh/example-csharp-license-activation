@@ -31,7 +31,9 @@ class Keygen
     var response = await client.ExecuteAsync<Document<License, Validation>>(request);
     if (response.Data.Errors.Count > 0)
     {
-      Console.WriteLine("[ERROR] [ValidateLicense] Status={0} Errors={1}", response.StatusCode, response.Data.Errors);
+      var err = response.Data.Errors[0];
+
+      Console.WriteLine("[ERROR] [ValidateLicense] Status={0} Title={1} Detail={2} Code={3}", response.StatusCode, err.Title, err.Detail, err.Code);
 
       Environment.Exit(1);
     }
@@ -66,7 +68,9 @@ class Keygen
     var response = await client.ExecuteAsync<Document<Machine>>(request);
     if (response.Data.Errors.Count > 0)
     {
-      Console.WriteLine("[ERROR] [ActivateDevice] Status={0} Errors={1}", response.StatusCode, response.Data.Errors);
+      var err = response.Data.Errors[0];
+
+      Console.WriteLine("[ERROR] [ActivateDevice] Status={0} Title={1} Detail={2} Code={3}", response.StatusCode, err.Title, err.Detail, err.Code);
 
       Environment.Exit(1);
     }
