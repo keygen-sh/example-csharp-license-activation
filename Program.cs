@@ -100,7 +100,7 @@ class Keygen
   {
     public Boolean Valid { get; set; }
     public string Detail { get; set; }
-    [JsonPropertyNameAttribute("constant")]
+    [JsonPropertyNameAttribute("code")]
     public string Code { get; set; }
   }
 
