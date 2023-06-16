@@ -41,11 +41,11 @@ class Keygen
     return response.Data;
   }
 
-  async public Task<Document<Machine>> ActivateDevice(string licenseId, string deviceFingerprint, string activationToken)
+  async public Task<Document<Machine>> ActivateDevice(string licenseId, string licenseKey, string deviceFingerprint)
   {
     var request = new RestRequest("machines", Method.Post);
 
-    request.AddHeader("Authorization", $"Bearer {activationToken}");
+    request.AddHeader("Authorization", $"License {licenseKey}");
     request.AddHeader("Content-Type", "application/vnd.api+json");
     request.AddHeader("Accept", "application/vnd.api+json");
     request.AddJsonBody(new {
@@ -147,7 +147,7 @@ class Program
       case "FINGERPRINT_SCOPE_MISMATCH":
       case "NO_MACHINES":
       case "NO_MACHINE":
-        var activation = await keygen.ActivateDevice((string) license.ID, "AB:CD:EF:GH:IJ:KL:MN:OP", "activ-37ab75d19cfbc88b6c4c4e06c3517447v3");
+        var activation = await keygen.ActivateDevice((string) license.ID, "0BB042-E1A90B-A5DC67-D651E0-73E6C5-V3", "AB:CD:EF:GH:IJ:KL:MN:OP");
 
         // Store device data
         device = activation.Data;
